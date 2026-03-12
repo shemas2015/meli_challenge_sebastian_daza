@@ -228,4 +228,28 @@ curl http://localhost:8000/api/vulnerabilities/upload/<id>/
 
 ---
 
+## 9. Frontend
+
+Interfaz web construida en **React 18 + Vite**, servida en el puerto `5174`. Se comunica con el backend vía REST y permite operar el sistema completo sin usar la línea de comandos.
+
+### Pantalla principal — listado de scans
+
+Muestra todos los reportes PDF procesados con su estado (`PENDING`, `PROCESSING`, `COMPLETED`, `FAILED`), la cantidad de findings encontrados y los resultados de cada análisis de vulnerabilidad.
+
+![Pantalla principal](front_main.png)
+
+### Cargar nuevo reporte
+
+Formulario para subir un PDF de scanner. Una vez enviado, el sistema procesa el reporte en background y actualiza el estado en tiempo real.
+
+![Cargar nuevo reporte](front_scan.png)
+
+### Detalle de un scan
+
+Vista expandida de un scan individual. Muestra cada vulnerabilidad encontrada con su veredicto (`TRUE_POSITIVE`, `FALSE_POSITIVE`, `INCONCLUSIVE`), severidad, score de confianza y el razonamiento completo del agente de triage.
+
+![Detalle de scan](front_detail.png)
+
+---
+
 *Stack: Django 5 · CrewAI 1.x · LiteLLM · PostgreSQL · React 18 · Docker*

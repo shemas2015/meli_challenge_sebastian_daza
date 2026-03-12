@@ -50,7 +50,7 @@ For each finding return a JSON object with:
 - endpoint: the affected URL path (e.g. /rest/products/search)
 - method: HTTP method (GET, POST, PUT, DELETE, PATCH), default GET
 - parameter: vulnerable parameter name (or null if unknown)
-- payload: example exploit payload string (or null if unknown). IMPORTANT: for CSRF findings, if the report contains a JSON block labeled "Payload (auto-test)" or similar with fields like "credentials", "login_url", "form_data", extract that entire JSON object as a compact single-line string for this field.
+- payload: the best exploit payload to use for dynamic testing. Selection priority: (1) a payload explicitly confirmed working in the description or evidence (e.g. "confirmed via ... with payload X", "triggers alert", "successfully exploited with"); (2) a payload from a "Payload (auto-test)" block; (3) the example payload from the PAYLOAD/REQUEST section. IMPORTANT: for CSRF findings, if the report contains a JSON block labeled "Payload (auto-test)" or similar with fields like "credentials", "login_url", "form_data", extract that entire JSON object as a compact single-line string for this field.
 - description: brief description of the vulnerability
 - target_url: base URL of the target application (e.g. http://juice-shop:3000)
 - run_dynamic_analysis: always true

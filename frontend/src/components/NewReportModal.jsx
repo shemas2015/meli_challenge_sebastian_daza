@@ -158,7 +158,7 @@ function NewReportModal({ onClose, onSuccess }) {
                 <div className="nrm-field">
                   <label className="nrm-label">Target URL</label>
                   <div className="nrm-url-input">
-                    <span className="nrm-url-text">http://100.93.112.98:3000/#/search</span>
+                    <span className="nrm-url-text">http://juice-shop:3000</span>
                     <span className="nrm-url-lock"><LockIcon /></span>
                   </div>
                   <p className="nrm-field-hint">URL is locked to the current project environment.</p>
