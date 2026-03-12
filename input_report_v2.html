@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vulnerability Assessment Report</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; font-size: 13px; color: #222; background: #fff; }
+
+  /* Cover */
+  .cover { page-break-after: always; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #1a1a2e; color: white; text-align: center; padding: 60px; }
+  .cover .logo { font-size: 48px; font-weight: 900; letter-spacing: 4px; color: #e94560; margin-bottom: 10px; }
+  .cover .subtitle { font-size: 14px; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 60px; }
+  .cover h1 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+  .cover .meta { margin-top: 60px; font-size: 13px; color: #ccc; line-height: 2; }
+  .cover .meta span { color: white; font-weight: bold; }
+
+  /* Content */
+  .page { padding: 50px 60px; max-width: 900px; margin: auto; }
+  h2 { font-size: 18px; border-bottom: 2px solid #e94560; padding-bottom: 6px; margin: 30px 0 16px; color: #1a1a2e; }
+  h3 { font-size: 14px; margin: 20px 0 8px; color: #333; }
+  p { line-height: 1.7; margin-bottom: 10px; color: #444; }
+
+  /* Summary table */
+  .summary-grid { display: flex; gap: 16px; margin: 20px 0; }
+  .summary-box { flex: 1; border-radius: 6px; padding: 16px; text-align: center; color: white; }
+  .summary-box .count { font-size: 36px; font-weight: 900; }
+  .summary-box .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .critical-box { background: #c0392b; }
+  .high-box { background: #e67e22; }
+  .medium-box { background: #f1c40f; color: #333; }
+  .low-box { background: #27ae60; }
+  .info-box { background: #2980b9; }
+
+  /* Severity badges */
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 3px; font-size: 11px; font-weight: bold; color: white; text-transform: uppercase; }
+  .CRITICAL { background: #c0392b; }
+  .HIGH { background: #e67e22; }
+  .MEDIUM { background: #f39c12; }
+  .LOW { background: #27ae60; }
+  .INFO { background: #2980b9; }
+
+  /* Vulnerability cards */
+  .vuln-card { border: 1px solid #ddd; border-radius: 6px; margin-bottom: 24px; overflow: hidden; page-break-inside: avoid; }
+  .vuln-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .CRITICAL .vuln-header { background: #fdecea; border-left: 5px solid #c0392b; }
+  .HIGH .vuln-header { background: #fef3e2; border-left: 5px solid #e67e22; }
+  .MEDIUM .vuln-header { background: #fefbe6; border-left: 5px solid #f1c40f; }
+  .LOW .vuln-header { background: #eafaf1; border-left: 5px solid #27ae60; }
+  .INFO .vuln-header { background: #eaf4fb; border-left: 5px solid #2980b9; }
+  .vuln-title { font-weight: bold; font-size: 14px; }
+  .vuln-id { font-size: 11px; color: #888; }
+  .vuln-body { padding: 16px; background: #fafafa; }
+  .vuln-body table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+  .vuln-body table td { padding: 6px 10px; border: 1px solid #e0e0e0; vertical-align: top; }
+  .vuln-body table td:first-child { width: 140px; font-weight: bold; background: #f0f0f0; color: #555; font-size: 12px; }
+  .vuln-body .section-label { font-weight: bold; font-size: 12px; color: #333; margin: 12px 0 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .code-block { background: #1e1e1e; color: #d4d4d4; padding: 12px 16px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; white-space: pre-wrap; margin: 8px 0; }
+  .highlight { color: #e94560; font-weight: bold; }
+
+  /* Footer */
+  .page-footer { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 12px; font-size: 11px; color: #aaa; display: flex; justify-content: space-between; }
+
+  @media print {
+    .cover { height: 100vh; }
+    .page { padding: 30px 40px; }
+    .vuln-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="logo">SEC&#9670;SCAN</div>
+  <div class="subtitle">Automated Vulnerability Scanner</div>
+  <h1>Vulnerability Assessment Report</h1>
+  <p style="color:#aaa; font-size:13px;">Web Application Security Audit — OWASP Juice Shop</p>
+  <div class="meta">
+    <div>Target: <span>http://juice-shop:3000</span></div>
+    <div>Scan Date: <span>2026-03-10</span></div>
+    <div>Scan Duration: <span>0h 52m 34s</span></div>
+    <div>Report Generated: <span>2026-03-10 21:20:00 UTC</span></div>
+    <div>Assessor: <span>SecScan Engine v4.2.1</span></div>
+    <div>Classification: <span style="color:#e94560;">CONFIDENTIAL</span></div>
+  </div>
+</div>
+
+<!-- REPORT CONTENT -->
+<div class="page">
+
+  <h2>1. Executive Summary</h2>
+  <p>This report presents the results of an automated vulnerability assessment conducted against <strong>OWASP Juice Shop</strong>. The scan identified <strong>5 vulnerabilities</strong> covering the primary web application attack categories. Immediate remediation is recommended for Critical and High severity findings.</p>
+
+  <div class="summary-grid">
+    <div class="summary-box critical-box"><div class="count">1</div><div class="label">Critical</div></div>
+    <div class="summary-box high-box"><div class="count">1</div><div class="label">High</div></div>
+    <div class="summary-box medium-box"><div class="count">3</div><div class="label">Medium</div></div>
+    <div class="summary-box low-box"><div class="count">0</div><div class="label">Low</div></div>
+    <div class="summary-box info-box"><div class="count">0</div><div class="label">Info</div></div>
+  </div>
+
+  <h2>2. Scope</h2>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:#f0f0f0;">
+      <td style="padding:8px; border:1px solid #ddd; font-weight:bold;">Target</td>
+      <td style="padding:8px; border:1px solid #ddd; font-weight:bold;">Type</td>
+      <td style="padding:8px; border:1px solid #ddd; font-weight:bold;">Status</td>
+    </tr>
+    <tr>
+      <td style="padding:8px; border:1px solid #ddd;">http://juice-shop:3000</td>
+      <td style="padding:8px; border:1px solid #ddd;">Web Application</td>
+      <td style="padding:8px; border:1px solid #ddd; color:green;">Scanned</td>
+    </tr>
+    <tr>
+      <td style="padding:8px; border:1px solid #ddd;">http://juice-shop:3000/rest</td>
+      <td style="padding:8px; border:1px solid #ddd;">REST API</td>
+      <td style="padding:8px; border:1px solid #ddd; color:green;">Scanned</td>
+    </tr>
+    <tr>
+      <td style="padding:8px; border:1px solid #ddd;">http://juice-shop:3000/api</td>
+      <td style="padding:8px; border:1px solid #ddd;">REST API</td>
+      <td style="padding:8px; border:1px solid #ddd; color:green;">Scanned</td>
+    </tr>
+    <tr>
+      <td style="padding:8px; border:1px solid #ddd;">http://juice-shop:3000/ftp</td>
+      <td style="padding:8px; border:1px solid #ddd;">File Server</td>
+      <td style="padding:8px; border:1px solid #ddd; color:green;">Scanned</td>
+    </tr>
+  </table>
+
+  <h2>3. Vulnerability Findings</h2>
+
+  <!-- VULN 1 - SQL INJECTION - CRITICAL -->
+  <div class="vuln-card CRITICAL">
+    <div class="vuln-header">
+      <div>
+        <div class="vuln-title">SQL Injection — Product Search</div>
+        <div class="vuln-id">ID: VSC-2026-001 &nbsp;|&nbsp; CWE-89 &nbsp;|&nbsp; CVSSv3: 9.8</div>
+      </div>
+      <span class="badge CRITICAL">Critical</span>
+    </div>
+    <div class="vuln-body">
+      <table>
+        <tr><td>Endpoint</td><td>GET /rest/products/search</td></tr>
+        <tr><td>Parameter</td><td>q (query string)</td></tr>
+        <tr><td>Method</td><td>GET</td></tr>
+        <tr><td>CVSS Score</td><td>9.8 (Critical)</td></tr>
+      </table>
+      <div class="section-label">Description</div>
+      <p>The <code>q</code> parameter in the product search endpoint is directly concatenated into a SQL query without sanitization or parameterized queries. An attacker can inject arbitrary SQL to bypass filters, extract data, or manipulate the database. The application discloses the raw SQLite error in the HTTP response, confirming active exploitation.</p>
+      <div class="section-label">Request</div>
+      <div class="code-block">GET /rest/products/search?q=<span class="highlight">' OR 1=1--</span> HTTP/1.1
+Host: juice-shop:3000</div>
+      <div class="section-label">Response</div>
+      <div class="code-block">HTTP/1.1 500 Internal Server Error
+Content-Type: text/html; charset=utf-8
+
+&lt;h1&gt;OWASP Juice Shop (Express ^4.22.1)&lt;/h1&gt;
+&lt;h2&gt;&lt;em&gt;500&lt;/em&gt; <span class="highlight">Error: SQLITE_ERROR: incomplete input</span>&lt;/h2&gt;</div>
+      <div class="section-label">Remediation</div>
+      <p>Use parameterized queries or an ORM with proper parameter binding. Never concatenate user input directly into SQL statements. Implement a global error handler to prevent raw database errors from reaching the client.</p>
+    </div>
+  </div>
+
+  <!-- VULN 2 - IDOR - HIGH -->
+  <div class="vuln-card HIGH">
+    <div class="vuln-header">
+      <div>
+        <div class="vuln-title">Insecure Direct Object Reference (IDOR) — Feedback Data Exposure</div>
+        <div class="vuln-id">ID: VSC-2026-002 &nbsp;|&nbsp; CWE-639 &nbsp;|&nbsp; CVSSv3: 8.1</div>
+      </div>
+      <span class="badge HIGH">High</span>
+    </div>
+    <div class="vuln-body">
+      <table>
+        <tr><td>Endpoint</td><td>GET /api/Feedbacks</td></tr>
+        <tr><td>Parameter</td><td>UserId (query string)</td></tr>
+        <tr><td>Method</td><td>GET</td></tr>
+        <tr><td>CVSS Score</td><td>8.1 (High)</td></tr>
+      </table>
+      <div class="section-label">Description</div>
+      <p>The <code>/api/Feedbacks</code> endpoint returns all feedback entries from all users without any authorization check. Any unauthenticated user can retrieve user emails, ratings, and personal comments by supplying an arbitrary <code>UserId</code>. No authentication token is required.</p>
+      <div class="section-label">Request</div>
+      <div class="code-block">GET /api/Feedbacks?UserId=<span class="highlight">1</span> HTTP/1.1
+Host: juice-shop:3000</div>
+      <div class="section-label">Response</div>
+      <div class="code-block">HTTP/1.1 200 OK
+{
+  "status": "success",
+  "data": [
+    {
+      "id": 1,
+      "UserId": 1,
+      "comment": "...",
+      "rating": 5,
+      <span class="highlight">"User": { "email": "admin@juice-sh.op" }</span>
+    },
+    ...
+  ]
+}</div>
+      <div class="section-label">Remediation</div>
+      <p>Enforce object-level authorization on every request. Require a valid authentication token and validate that the requesting user is authorized to access the target resource. Apply authorization checks server-side, not only in the frontend.</p>
+    </div>
+  </div>
+
+  <!-- VULN 3 - XSS - MEDIUM -->
+  <div class="vuln-card MEDIUM">
+    <div class="vuln-header">
+      <div>
+        <div class="vuln-title">Cross-Site Scripting (XSS) — DOM-Based via Product Search</div>
+        <div class="vuln-id">ID: VSC-2026-003 &nbsp;|&nbsp; CWE-79 &nbsp;|&nbsp; CVSSv3: 6.1</div>
+      </div>
+      <span class="badge MEDIUM">Medium</span>
+    </div>
+    <div class="vuln-body">
+      <table>
+        <tr><td>Endpoint</td><td>GET /#/search</td></tr>
+        <tr><td>Parameter</td><td>q (query string)</td></tr>
+        <tr><td>Method</td><td>GET</td></tr>
+        <tr><td>Type</td><td>DOM-Based XSS</td></tr>
+        <tr><td>CVSS Score</td><td>6.1 (Medium)</td></tr>
+      </table>
+      <div class="section-label">Description</div>
+      <p>The Angular frontend reads the <code>q</code> parameter from the URL and injects its value directly into the DOM without sanitization. An attacker can craft a malicious URL containing an HTML/JavaScript payload that executes in the victim's browser upon visiting the link — no server-side reflection required. Confirmed via headless browser testing with payload <code>&lt;img src=x onerror=alert(1)&gt;</code>: the payload triggers an alert dialog.</p>
+      <div class="section-label">Payload</div>
+      <div class="code-block">GET /#/search?q=<span class="highlight">&lt;img src=x onerror=alert(1)&gt;</span> HTTP/1.1
+Host: juice-shop:3000</div>
+      <div class="section-label">Evidence — Browser Execution</div>
+      <div class="code-block"><span class="highlight">[!] XSS triggered — browser alert fired: "1"</span>
+Detection method: dom_browser (Playwright headless Chromium)
+URL: http://juice-shop:3000/#/search?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E
+Result: VULNERABLE — JavaScript executed in browser context</div>
+      <div class="section-label">Remediation</div>
+      <p>Sanitize URL parameters before injecting into the DOM. Avoid using <code>innerHTML</code>, <code>document.write()</code>, or jQuery's <code>.html()</code> with user-controlled data. Implement a Content Security Policy (CSP) header that restricts <code>javascript:</code> URIs and inline scripts. Use Angular's built-in sanitization pipeline and never bypass it with <code>bypassSecurityTrustHtml()</code>.</p>
+    </div>
+  </div>
+
+  <!-- VULN 4 - CSRF - MEDIUM -->
+  <div class="vuln-card MEDIUM">
+    <div class="vuln-header">
+      <div>
+        <div class="vuln-title">Cross-Site Request Forgery (CSRF) — User Profile Update</div>
+        <div class="vuln-id">ID: VSC-2026-004 &nbsp;|&nbsp; CWE-352 &nbsp;|&nbsp; CVSSv3: 6.5</div>
+      </div>
+      <span class="badge MEDIUM">Medium</span>
+    </div>
+    <div class="vuln-body">
+      <table>
+        <tr><td>Endpoint</td><td>POST /profile</td></tr>
+        <tr><td>Parameter</td><td>username (body)</td></tr>
+        <tr><td>Method</td><td>POST</td></tr>
+        <tr><td>CVSS Score</td><td>6.5 (Medium)</td></tr>
+      </table>
+      <div class="section-label">Description</div>
+      <p>The profile update endpoint accepts POST requests using a session cookie (<code>token</code>) without any CSRF token validation. An attacker can trick an authenticated victim into changing their username by embedding a forged cross-origin form POST in a malicious page. The browser automatically sends the session cookie, and the server processes the request without verifying its origin.</p>
+      <div class="section-label">Request (no CSRF token)</div>
+      <div class="code-block">POST /profile HTTP/1.1
+Host: juice-shop:3000
+Content-Type: application/x-www-form-urlencoded
+<span class="highlight">Origin: http://evil-attacker.com</span>
+Cookie: token=&lt;victim_session_token&gt;
+
+<span class="highlight">username=CSRF_DEMO</span>
+<span class="highlight"><!-- No CSRF token required --></span></div>
+      <div class="section-label">Response</div>
+      <div class="code-block">HTTP/1.1 302 Found
+Location: /profile
+
+<span class="highlight"><!-- Username changed successfully — state-changing operation completed without CSRF protection --></span></div>
+      <div class="section-label">Payload (auto-test)</div>
+      <div class="code-block">{
+  "login_url": "/rest/user/login",
+  "credentials": {"email": "admin@juice-sh.op", "password": "admin123"},
+  "form_data": "username=CSRF_DEMO"
+}</div>
+      <div class="section-label">Remediation</div>
+      <p>Implement CSRF tokens (synchronizer token pattern) on all state-changing operations. Validate the <code>Origin</code> and <code>Referer</code> headers server-side. Set the <code>SameSite=Strict</code> attribute on session cookies.</p>
+    </div>
+  </div>
+
+  <!-- VULN 5 - PATH TRAVERSAL - MEDIUM -->
+  <div class="vuln-card MEDIUM">
+    <div class="vuln-header">
+      <div>
+        <div class="vuln-title">Path Traversal — FTP Directory Confidential File Exposure</div>
+        <div class="vuln-id">ID: VSC-2026-005 &nbsp;|&nbsp; CWE-22 &nbsp;|&nbsp; CVSSv3: 7.5</div>
+      </div>
+      <span class="badge MEDIUM">Medium</span>
+    </div>
+    <div class="vuln-body">
+      <table>
+        <tr><td>Endpoint</td><td>GET /ftp/legal.md</td></tr>
+        <tr><td>Parameter</td><td>path (URL path)</td></tr>
+        <tr><td>Method</td><td>GET</td></tr>
+        <tr><td>CVSS Score</td><td>7.5 (High)</td></tr>
+      </table>
+      <div class="section-label">Description</div>
+      <p>The <code>/ftp/</code> endpoint serves files directly without path sanitization or access controls. An attacker can use directory traversal sequences (<code>../</code>) directly in the URL path to read files outside the intended FTP directory. The server resolves traversal sequences and serves the resulting file without restriction, exposing confidential internal documents.</p>
+      <div class="section-label">Payload</div>
+      <div class="code-block">GET /ftp/<span class="highlight">../ftp/acquisitions.md</span> HTTP/1.1
+Host: juice-shop:3000</div>
+      <div class="section-label">Response</div>
+      <div class="code-block">HTTP/1.1 200 OK
+Content-Type: text/markdown; charset=UTF-8
+
+<span class="highlight"># Planned Acquisitions
+
+> This document is confidential! Do not distribute!
+
+Our company plans to acquire several competitors within the next year.
+This will have a significant stock market impact...</span></div>
+      <div class="section-label">Remediation</div>
+      <p>Validate and canonicalize all file paths before use. Resolve the absolute path server-side and verify it is contained within the allowed base directory. Restrict the <code>/ftp/</code> endpoint to an explicit allowlist of public files. Apply authentication before serving any file from this directory.</p>
+    </div>
+  </div>
+
+  <h2>4. Remediation Summary</h2>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:#1a1a2e; color:white;">
+      <td style="padding:8px; border:1px solid #ddd;">ID</td>
+      <td style="padding:8px; border:1px solid #ddd;">Vulnerability</td>
+      <td style="padding:8px; border:1px solid #ddd;">Severity</td>
+      <td style="padding:8px; border:1px solid #ddd;">Priority</td>
+      <td style="padding:8px; border:1px solid #ddd;">Status</td>
+    </tr>
+    <tr><td style="padding:7px; border:1px solid #ddd;">VSC-2026-001</td><td style="padding:7px; border:1px solid #ddd;">SQL Injection — Product Search</td><td style="padding:7px; border:1px solid #ddd;"><span class="badge CRITICAL">Critical</span></td><td style="padding:7px; border:1px solid #ddd;">Immediate</td><td style="padding:7px; border:1px solid #ddd; color:red;">Open</td></tr>
+    <tr><td style="padding:7px; border:1px solid #ddd;">VSC-2026-002</td><td style="padding:7px; border:1px solid #ddd;">IDOR — Feedback Data Exposure</td><td style="padding:7px; border:1px solid #ddd;"><span class="badge HIGH">High</span></td><td style="padding:7px; border:1px solid #ddd;">24–48h</td><td style="padding:7px; border:1px solid #ddd; color:red;">Open</td></tr>
+    <tr><td style="padding:7px; border:1px solid #ddd;">VSC-2026-003</td><td style="padding:7px; border:1px solid #ddd;">XSS — Product Search</td><td style="padding:7px; border:1px solid #ddd;"><span class="badge MEDIUM">Medium</span></td><td style="padding:7px; border:1px solid #ddd;">1 week</td><td style="padding:7px; border:1px solid #ddd; color:red;">Open</td></tr>
+    <tr><td style="padding:7px; border:1px solid #ddd;">VSC-2026-004</td><td style="padding:7px; border:1px solid #ddd;">CSRF — User Profile Update</td><td style="padding:7px; border:1px solid #ddd;"><span class="badge MEDIUM">Medium</span></td><td style="padding:7px; border:1px solid #ddd;">1 week</td><td style="padding:7px; border:1px solid #ddd; color:red;">Open</td></tr>
+    <tr><td style="padding:7px; border:1px solid #ddd;">VSC-2026-005</td><td style="padding:7px; border:1px solid #ddd;">Path Traversal — FTP Directory</td><td style="padding:7px; border:1px solid #ddd;"><span class="badge MEDIUM">Medium</span></td><td style="padding:7px; border:1px solid #ddd;">1 week</td><td style="padding:7px; border:1px solid #ddd; color:red;">Open</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <span>SecScan Engine v4.2.1 — CONFIDENTIAL</span>
+    <span>Generated: 2026-03-10 21:20:00 UTC</span>
+  </div>
+
+</div>
+</body>
+</html>

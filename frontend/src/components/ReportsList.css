@@ -1,0 +1,317 @@
+/* ── Page wrapper ── */
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100%;
+}
+
+/* ── Heading ── */
+.reports-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reports-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.reports-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* ── Table card ── */
+.reports-card {
+  background-color: #161c2d;
+  border-radius: 12px;
+  border: 1px solid #1e2a3a;
+  overflow: hidden;
+}
+
+/* ── Table ── */
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-table thead tr {
+  background-color: #111827;
+  border-bottom: 1px solid #1e2a3a;
+}
+
+.reports-table th {
+  padding: 13px 20px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #4a5568;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.reports-table tbody tr {
+  border-bottom: 1px solid #1a2235;
+  transition: background-color 0.12s ease;
+}
+
+.reports-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.reports-table tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.04);
+}
+
+.reports-table td {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: #e2e8f0;
+  vertical-align: middle;
+}
+
+/* ── Column-specific styles ── */
+
+.col-id {
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* File cell */
+.file-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.file-icon--doc {
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+}
+
+.file-icon--url {
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+}
+
+.file-name {
+  font-size: 13.5px;
+  color: #e2e8f0;
+  word-break: break-all;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge--completed {
+  background-color: #0d3321;
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.badge--pending {
+  background-color: #331a00;
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.badge--failed {
+  background-color: #3b0d0d;
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+.reports-state {
+  padding: 48px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.reports-state--error {
+  color: #f87171;
+}
+
+.badge--inconclusive {
+  background-color: #1e1a33;
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+/* Findings */
+.col-findings {
+  text-align: center;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+/* Progress bar */
+.progress-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background-color: #1e2a3a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* Date */
+.col-date {
+  color: #94a3b8;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Actions */
+.action-link {
+  color: #3b82f6;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.action-link:hover {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+/* ── Pagination ── */
+.reports-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-top: 1px solid #1e2a3a;
+  background-color: #111827;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.page-btn:hover:not(:disabled):not(.page-btn--active) {
+  background-color: #1e2a3a;
+  color: #e2e8f0;
+}
+
+.page-btn--active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+  cursor: default;
+}
+
+.page-btn--arrow {
+  color: #64748b;
+}
+
+.page-btn--arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  font-size: 13px;
+  color: #4a5568;
+  letter-spacing: 0.05em;
+}
+
+/* ── Footer banner ── */
+.reports-footer-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background-color: #161c2d;
+  border: 1px solid #1e2a3a;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-dot {
+  color: #3b82f6;
+  font-size: 10px;
+}

@@ -1,0 +1,51 @@
+{'payload': '../ftp/acquisitions.md',
+ 'response': {'body': '# Planned Acquisitions\n'
+                      '\n'
+                      '> This document is confidential! Do not distribute!\n'
+                      '\n'
+                      'Our company plans to acquire several competitors within '
+                      'the next year.\n'
+                      'This will have a significant stock market impact as we '
+                      'will elaborate in\n'
+                      'detail in the following paragraph:\n'
+                      '\n'
+                      'Lorem ipsum dolor sit amet, consetetur sadipscing '
+                      'elitr, sed diam nonumy\n'
+                      'eirmod tempor invidunt ut labore et dolore magna '
+                      'aliquyam erat, sed diam\n'
+                      'voluptua. At vero eos et accusam et justo duo dolores '
+                      'et ea rebum. Stet\n'
+                      'clita kasd gubergren, no sea takimata sanctus est Lorem '
+                      'ipsum dolor sit\n'
+                      'amet. Lorem ipsum dolor sit amet, consetetur sadipscing '
+                      'elitr, sed diam\n'
+                      'nonumy eirmod tempor invidunt ut labore et dolore magna '
+                      'aliquyam erat,\n'
+                      'sed diam voluptua. At vero eos et accusam et justo duo '
+                      'dolores et ea\n'
+                      'rebum. Stet clita kasd gubergren, no sea takimata '
+                      'sanctus est Lorem\n'
+                      'ipsum dolor sit amet.\n'
+                      '\n'
+                      "Our shareholders will be excited. It's true. No fake "
+                      'news.\n',
+              'headers': {'Accept-Ranges': 'bytes',
+                          'Access-Control-Allow-Origin': '*',
+                          'Cache-Control': 'public, max-age=0',
+                          'Connection': 'keep-alive',
+                          'Content-Length': '909',
+                          'Content-Type': 'text/markdown; charset=UTF-8',
+                          'Date': 'Wed, 11 Mar 2026 16:27:58 GMT',
+                          'ETag': 'W/"38d-19cc87d2290"',
+                          'Feature-Policy': "payment 'self'",
+                          'Keep-Alive': 'timeout=5',
+                          'Last-Modified': 'Sat, 07 Mar 2026 13:29:30 GMT',
+                          'Vary': 'Accept-Encoding',
+                          'X-Content-Type-Options': 'nosniff',
+                          'X-Frame-Options': 'SAMEORIGIN',
+                          'X-Recruiting': '/#/jobs'},
+              'response_time': 0.005132,
+              'status_code': 200,
+              'success': True,
+              'url': 'http://juice_shop:3000/ftp/acquisitions.md'},
+ 'vulnerable': True}
