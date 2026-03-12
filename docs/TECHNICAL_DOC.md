@@ -144,10 +144,6 @@ DATABASE_URL=postgresql://postgres:postgres@db:5432/vuln_triage
 ANTHROPIC_API_KEY=your-anthropic-api-key
 OPENAI_API_KEY=your-openai-api-key
 GOOGLE_API_KEY=your-google-api-key
-
-# Juice Shop (no modificar si se usa Docker Compose)
-JUICE_SHOP_URL=http://juice-shop:3000
-JUICE_SHOP_CODE_PATH=/path/to/juice-shop/code   # opcional, para análisis estático
 ```
 
 ### Puertos requeridos

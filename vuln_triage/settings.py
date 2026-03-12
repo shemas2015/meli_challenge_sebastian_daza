@@ -177,7 +177,3 @@ CORS_ALLOW_ALL_ORIGINS = True
 OPENAI_API_KEY = env('OPENAI_API_KEY', default='')
 ANTHROPIC_API_KEY = env('ANTHROPIC_API_KEY', default='')
 GOOGLE_API_KEY = env('GOOGLE_API_KEY', default='')
-
-# Juice Shop configuration
-JUICE_SHOP_URL = env('JUICE_SHOP_URL', default='http://juice-shop:3000')
-JUICE_SHOP_CODE_PATH = env('JUICE_SHOP_CODE_PATH', default='')
